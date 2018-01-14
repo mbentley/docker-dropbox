@@ -67,7 +67,6 @@ gosu "${DBOX_USERNAME}" "${@}"
 # while loop because dropbox is really fucking stupid about how they run their app
 while [ "$(pidof dropbox)" ]
 do
-  echo "Dropbox is running"
   sleep 5
 done
 
