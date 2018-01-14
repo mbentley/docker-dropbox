@@ -28,7 +28,7 @@ else
   useradd -u "${DBOX_UID}" -g "${DBOX_GID}" -d "/home/${DBOX_USERNAME}" "${DBOX_USERNAME}" -s /bin/bash
 fi
 
-
+# create directories if needed
 for DIR in "/home/${DBOX_USERNAME}" "/home/${DBOX_USERNAME}/Dropbox" "/home/${DBOX_USERNAME}/.dropbox"
 do
   if [ ! -d "${DIR}" ]
@@ -40,8 +40,16 @@ do
   fi
 done
 
+# change ownership of directories
 chown -R "${DBOX_USERNAME}:${DBOX_GROUP}" "/home/${DBOX_USERNAME}"
 
-echo "INFO: Running Dropbox as ${DBOX_USERNAME}:${DBOX_GROUP} (${DBOX_UID}:${DBOX_GID})"
+# check to see if an existing PID file exists; remove if so
+if [ -f "/home/${DBOX_USERNAME}/.dropbox/dropbox.pid" ]
+then
+  echo "INFO: Existing PID file found; removing"
+  rm "/home/${DBOX_USERNAME}/.dropbox/dropbox.pid"
+fi
 
+# start dropbox
+echo "INFO: Running Dropbox as ${DBOX_USERNAME}:${DBOX_GROUP} (${DBOX_UID}:${DBOX_GID})"
 exec gosu "${DBOX_USERNAME}" "${@}"
