@@ -40,6 +40,10 @@ do
   fi
 done
 
+# create symlink to home directory
+echo "INFO: Creating symlink from '/opt/dropbox/.dropbox-dist' to '/home/${DBOX_USERNAME}/.dropbox-dist'"
+ln -sf "/opt/dropbox/.dropbox-dist" "/home/${DBOX_USERNAME}/.dropbox-dist"
+
 # change ownership of directories
 chown -R "${DBOX_USERNAME}:${DBOX_GROUP}" "/home/${DBOX_USERNAME}"
 
