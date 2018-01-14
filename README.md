@@ -23,7 +23,7 @@ docker run -d \
 You *must* use volumes for `~/.dropbox` and `~/Dropbox` otherwise you will see data corruption every time Dropbox starts.
 
 Startup environment variables:
-  * `DBOX_USERNAME` - username to use inside the container
-  * `DBOX_GROUP` - group name to use inside the container
-  * `DBOX_UID` - UID of the new user inside the container; this is important if you want to have the UID outside the container match inside
-  * `DBOX_GID` - GID of the new user's group inside the container; this is important if you want to have the GID outside the container match inside
+  * `DBOX_USERNAME` - (default: `default`) username to use inside the container
+  * `DBOX_GROUP` - (default: `default`) group name to use inside the container
+  * `DBOX_UID` - (default: `1000`) UID of the new user inside the container; this is important if you want to have the UID outside the container match inside
+  * `DBOX_GID` - (default: `1000`) GID of the new user's group inside the container; this is important if you want to have the GID outside the container match inside
