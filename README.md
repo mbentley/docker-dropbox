@@ -10,6 +10,7 @@ Example usage:
 ```
 docker run -d \
   --name dropbox \
+  --hostname dropbox \
   --net=host \
   -e DBOX_USERNAME=default \
   -e DBOX_GROUP=default \
