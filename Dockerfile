@@ -29,4 +29,4 @@ RUN (wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/downlo
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/tini","-s","--","/opt/dropbox/.dropbox-dist/dropboxd"]
+CMD ["/tini","-s","--","dropbox.py","start"]

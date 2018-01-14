@@ -7,6 +7,12 @@ DBOX_GROUP="${DBOX_GROUP:-${DBOX_USERNAME}}"
 DBOX_UID="${DBOX_UID:-1000}"
 DBOX_GID="${DBOX_GID:-${DBOX_UID}}"
 
+trap 'stop_dropbox' SIGTERM
+
+stop_dropbox() {
+  gosu "${DBOX_USERNAME}" dropbox.py stop
+  exit 0
+}
 
 # check to see if group exists; if not, create it
 if grep -q -E "^${DBOX_GROUP}:" /etc/group > /dev/null 2>&1
@@ -56,4 +62,13 @@ fi
 
 # start dropbox
 echo "INFO: Running Dropbox as ${DBOX_USERNAME}:${DBOX_GROUP} (${DBOX_UID}:${DBOX_GID})"
-exec gosu "${DBOX_USERNAME}" "${@}"
+gosu "${DBOX_USERNAME}" "${@}"
+
+# while loop because dropbox is really fucking stupid about how they run their app
+while [ "$(pidof dropbox)" ]
+do
+  echo "Dropbox is running"
+  sleep 5
+done
+
+exit 1
