@@ -3,7 +3,7 @@ MAINTAINER Matt Bentley <mbentley@mbentley.net>
 
 # install prereqs
 RUN (apt-get update &&\
-  apt-get install -y jq python2.7-minimal wget &&\
+  apt-get install -y jq libglib2.0-0 python2.7-minimal wget &&\
   rm -rf /var/lib/apt/lists/*)
 
 # install dropbox
