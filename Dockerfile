@@ -14,7 +14,8 @@ RUN (mkdir /opt/dropbox &&\
 # install dropbox.py
 RUN (wget -O /usr/local/bin/dropbox.py "https://www.dropbox.com/download?dl=packages/dropbox.py" &&\
   chmod +x /usr/local/bin/dropbox.py &&\
-  ln -s /usr/bin/python2.7 /usr/bin/python)
+  ln -s /usr/bin/python2.7 /usr/bin/python &&\
+  ln -s /usr/bin/python2.7 /usr/bin/python2)
 
 # install tini
 RUN (TINI_VER="$(wget -q -O - https://api.github.com/repos/krallin/tini/releases/latest | jq -r .tag_name)" &&\
@@ -29,4 +30,4 @@ RUN (wget -O /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/downlo
 COPY entrypoint.sh /entrypoint.sh
 
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["/tini","-s","--","dropbox.py","start"]
+CMD ["start"]

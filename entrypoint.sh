@@ -61,8 +61,13 @@ then
 fi
 
 # start dropbox
-echo "INFO: Running Dropbox as ${DBOX_USERNAME}:${DBOX_GROUP} (${DBOX_UID}:${DBOX_GID})"
-gosu "${DBOX_USERNAME}" "${@}"
+if [ "${*}" = "start" ]
+then
+  echo "INFO: Running Dropbox as ${DBOX_USERNAME}:${DBOX_GROUP} (${DBOX_UID}:${DBOX_GID})"
+  gosu "${DBOX_USERNAME}" /tini -s -- /home/"${DBOX_USERNAME}"/.dropbox-dist/dropboxd
+else
+  gosu "${DBOX_USERNAME}" "${@}"
+fi
 
 # while loop because dropbox is really fucking stupid about how they run their app
 while [ "$(pidof dropbox)" ]
