@@ -69,7 +69,7 @@ else
   gosu "${DBOX_USERNAME}" "${@}"
 fi
 
-# while loop because dropbox is really fucking stupid about how they run their app
+# while loop because dropbox is really stupid about how they run their app
 while [ "$(pidof dropbox)" ]
 do
   sleep 5
